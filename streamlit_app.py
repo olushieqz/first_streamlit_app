@@ -2,6 +2,7 @@ import streamlit
 import pandas
 import requests
 import snowflake.connector
+from urllib.error import URLError
 
 streamlit.header('Breakfast Menu')
 streamlit.text('🥣 Omega 3 & Blueberry Oatmeal')
@@ -38,5 +39,5 @@ my_cur.execute("SELECT * FROM fruit_load_list")
 my_data_row = my_cur.fetchall()
 streamlit.text("The fruit list contains")
 streamlit.dataframe(my_data_row)
-my_fruits_selected = streamlit.multiselect("Add fruit:", my_data_row)
+my_fruits_selected = streamlit.multiselect("Add fruit:", [i[0] for i in my_data_row])
 streamlit.text(f"Thanks for adding {''.join(my_fruits_selected)}")
